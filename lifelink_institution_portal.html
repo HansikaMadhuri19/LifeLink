@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LifeLink | Blood Bank & Hospital Portal</title>
+<style>
+:root{--red:#a51d35;--red-dark:#78172d;--ink:#202638;--muted:#687084;--line:#e6e9ef;--bg:#f4f6fa;--green:#16734f;--amber:#9b6715}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--ink);line-height:1.45}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.sidebar{position:fixed;inset:0 auto 0 0;width:238px;background:#202638;color:#fff;padding:22px 16px;display:flex;flex-direction:column;z-index:3}
+.logo{font-size:22px;font-weight:800;padding:4px 10px 28px;color:#fff}.logo span{color:#ff9aaa}
+.org{padding:13px 11px;border:1px solid #ffffff25;border-radius:10px;margin-bottom:22px;font-size:12px;color:#d6d9e2}.org b{display:block;color:white;font-size:14px;margin-bottom:3px}
+.navlabel{font-size:10px;letter-spacing:1.5px;color:#9ea6b7;padding:10px}
+.nav button{width:100%;text-align:left;background:transparent;color:#dce0e8;border:0;border-radius:8px;padding:12px 11px;margin:2px 0;font-size:13px}.nav button.active,.nav button:hover{background:#ffffff18;color:#fff}
+.sidebottom{margin-top:auto;color:#aeb5c3;font-size:11px;padding:12px}
+main{margin-left:238px;min-height:100vh}.top{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:2}
+.top small{color:var(--muted)}.user{display:flex;align-items:center;gap:10px;font-size:13px}.avatar{width:34px;height:34px;border-radius:50%;background:#ffedf0;color:var(--red);display:grid;place-items:center;font-weight:800}
+.content{max-width:1240px;margin:auto;padding:28px 30px 60px}.page{display:none}.page.active{display:block}
+.heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}.heading h1{font-size:25px;margin:0 0 5px}.heading p{margin:0;color:var(--muted);font-size:13px}
+.btn{border:0;border-radius:8px;padding:10px 15px;background:var(--red);color:white;font-weight:700;font-size:13px}.btn:hover{background:var(--red-dark)}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.green{background:var(--green)}.btn.danger{background:#fff0f1;color:#a51d35;border:1px solid #f2cbd1}.btn.sm{padding:7px 10px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:12px}.stat{padding:17px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{font-size:27px;display:block;margin:7px 0 2px}.stat small{font-size:11px;color:var(--muted)}
+.panel{padding:19px;margin-bottom:18px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.panelhead h2{font-size:16px;margin:0}.panelhead p{font-size:12px;color:var(--muted);margin:3px 0 0}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{max-width:220px}
+input,select,textarea{width:100%;border:1px solid #dce1e9;border-radius:7px;padding:10px 11px;background:#fff;color:var(--ink);font-size:13px;outline:none}input:focus,select:focus,textarea:focus{border-color:#c34b60;box-shadow:0 0 0 3px #c34b6014}
+label{display:block;font-size:12px;font-weight:700;color:#4c5363;margin:12px 0 6px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.span2{grid-column:1/-1}
+table{border-collapse:collapse;width:100%;font-size:12px}th{text-align:left;color:#737b8c;background:#f8f9fb;font-weight:700}th,td{padding:12px 10px;border-bottom:1px solid #edf0f4;vertical-align:middle}td{color:#3f4655}.tablewrap{overflow:auto}
+.pill{display:inline-block;padding:4px 8px;border-radius:30px;font-size:10px;font-weight:700;background:#f1f3f6;color:#596174}.pill.pending{background:#fff5e5;color:#966111}.pill.approved{background:#eaf7ef;color:#16734f}.pill.rejected{background:#fff0f1;color:#a51d35}
+.bloodgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.bloodbox{border:1px solid var(--line);border-radius:10px;padding:13px}.bloodbox b{font-size:20px;color:var(--red)}.bloodbox span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.notice{background:#fff8e9;border-left:3px solid #d69a36;border-radius:5px;padding:11px 13px;color:#745a29;font-size:11px;margin:12px 0}
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:13px}
+.modalback{display:none;position:fixed;inset:0;background:#11182788;z-index:10;align-items:center;justify-content:center;padding:16px}.modalback.show{display:flex}.modal{width:min(620px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:14px;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{margin:0;font-size:18px}.x{border:0;background:#f0f2f5;border-radius:50%;width:30px;height:30px}
+#toast{position:fixed;bottom:20px;right:20px;background:#202638;color:white;padding:13px 16px;border-radius:9px;display:none;z-index:20;font-size:13px;max-width:360px}
+footer{padding:20px 30px;color:#8790a0;font-size:11px}
+@media(max-width:900px){.sidebar{width:66px;padding:16px 8px}.logo{font-size:0;padding:8px 10px 25px}.logo:after{content:"♥";font-size:24px}.org,.navlabel,.nav button span,.sidebottom{display:none}.nav button{text-align:center;font-size:0}.nav button:after{content:attr(data-icon);font-size:17px}.nav button{padding:13px 4px}main{margin-left:66px}.stats{grid-template-columns:repeat(2,1fr)}.content{padding:22px 18px}}
+@media(max-width:600px){.top{padding:0 15px}.content{padding:18px 12px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:22px}.heading{display:block}.heading .btn{margin-top:12px}.bloodgrid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.span2{grid-column:auto}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">♥ Life<span>Link</span></div>
+  <div class="org"><b id="orgNameSide">City Care Blood Centre</b>Institution portal · Demo account</div>
+  <div class="navlabel">WORKSPACE</div>
+  <div class="nav">
+    <button class="active" data-page="overview" data-icon="▦" onclick="showPage('overview',this)"><span>Overview</span></button>
+    <button data-page="applications" data-icon="♙" onclick="showPage('applications',this)"><span>Donor applications</span></button>
+    <button data-page="inventory" data-icon="🩸" onclick="showPage('inventory',this)"><span>Blood inventory</span></button>
+    <button data-page="addstock" data-icon="＋" onclick="showPage('addstock',this)"><span>Update blood stock</span></button>
+    <button data-page="profile" data-icon="⚙" onclick="showPage('profile',this)"><span>Institution profile</span></button>
+  </div>
+  <div class="sidebottom">LifeLink static prototype<br>Institution dashboard</div>
+</aside>
+<main>
+  <div class="top"><div><b id="topTitle">Overview</b><br><small>Blood bank & hospital workspace</small></div><div class="user"><div class="avatar">CC</div><div><b id="topOrgName">City Care Blood Centre</b><br><small>Demo administrator</small></div></div></div>
+  <div class="content">
+    <section class="page active" id="page-overview">
+      <div class="heading"><div><h1>Good morning 👋</h1><p>Here is an overview of donor applications and blood stock at your institution.</p></div><button class="btn" onclick="showPage('addstock')">＋ Add blood stock</button></div>
+      <div class="stats">
+        <div class="stat"><div class="label">New donor applications</div><strong id="newCount">3</strong><small>Awaiting review</small></div>
+        <div class="stat"><div class="label">Approved donors</div><strong id="approvedCount">2</strong><small>Marked as approved</small></div>
+        <div class="stat"><div class="label">Blood groups listed</div><strong id="groupCount">8</strong><small>Groups with stock records</small></div>
+        <div class="stat"><div class="label">Total units listed</div><strong id="unitCount">16</strong><small>Demo inventory total</small></div>
+      </div>
+      <div class="panel"><div class="panelhead"><div><h2>Recent donor applications</h2><p>People who selected your institution as their preferred donation centre.</p></div><button class="btn secondary sm" onclick="showPage('applications')">View all</button></div><div class="tablewrap"><table><thead><tr><th>DONOR</th><th>BLOOD GROUP</th><th>PREFERRED DATE</th><th>STATUS</th><th></th></tr></thead><tbody id="recentApplications"></tbody></table></div></div>
+      <div class="panel"><div class="panelhead"><div><h2>Current blood stock</h2><p>Published sample inventory by blood group.</p></div><button class="btn secondary sm" onclick="showPage('inventory')">Manage stock</button></div><div class="bloodgrid" id="overviewStock"></div></div>
+      <div class="notice">This is a static demonstration dashboard. The donor applications are fictional sample records. A deployed multi-user system needs a secure backend so applications submitted on the public website reach the correct institution.</div>
+    </section>
+
+    <section class="page" id="page-applications">
+      <div class="heading"><div><h1>Donor applications</h1><p>Review donor preferences submitted for your blood bank or hospital.</p></div></div>
+      <div class="panel"><div class="toolbar"><input id="appSearch" placeholder="Search donor or blood group" oninput="renderApplications()"><select id="appStatus" onchange="renderApplications()"><option value="">All statuses</option><option>Pending</option><option>Approved</option><option>Declined</option></select></div><div class="tablewrap"><table><thead><tr><th>DONOR DETAILS</th><th>GROUP</th><th>LOCATION</th><th>PREFERRED DATE / TIME</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="applicationRows"></tbody></table></div></div>
+      <div class="notice">Only review donor applications and contact the applicant through the consented contact method. Approval in this demo is not a medical eligibility decision or a confirmed appointment.</div>
+    </section>
+
+    <section class="page" id="page-inventory">
+      <div class="heading"><div><h1>Blood inventory</h1><p>Manage the blood units your institution reports as currently available.</p></div><button class="btn" onclick="showPage('addstock')">＋ Add / update stock</button></div>
+      <div class="panel"><div class="toolbar"><input id="stockSearch" placeholder="Search blood group or component" oninput="renderInventory()"><select id="stockFilter" onchange="renderInventory()"><option value="">All blood groups</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div><div class="tablewrap"><table><thead><tr><th>BLOOD GROUP</th><th>COMPONENT</th><th>UNITS</th><th>LAST UPDATED</th><th>VISIBILITY</th><th>ACTION</th></tr></thead><tbody id="stockRows"></tbody></table></div></div>
+      <div class="notice">Publish only verified, current stock information. Inventory changes in this browser demo are not visible to other users or the public LifeLink website.</div>
+    </section>
+
+    <section class="page" id="page-addstock">
+      <div class="heading"><div><h1>Update blood stock</h1><p>Add a new stock entry or report the currently available units.</p></div></div>
+      <div class="panel" style="max-width:720px"><form id="stockForm"><div class="formgrid">
+        <div><label for="stockGroup">Blood group *</label><select id="stockGroup" required><option value="">Select group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+        <div><label for="component">Blood component *</label><select id="component" required><option value="">Select component</option><option>Whole blood</option><option>Red blood cells (RBC)</option><option>Platelets</option><option>Plasma</option></select></div>
+        <div><label for="units">Available units *</label><input id="units" type="number" min="0" max="999" required placeholder="e.g. 5"></div>
+        <div><label for="stockDate">Collection / update date *</label><input id="stockDate" type="date" required></div>
+        <div class="span2"><label for="stockNotes">Additional notes (optional)</label><textarea id="stockNotes" rows="3" placeholder="Optional internal note. Do not enter patient-identifying information."></textarea></div>
+        <div class="span2"><label style="display:flex;gap:8px;align-items:flex-start;font-weight:400"><input id="publishStock" type="checkbox" checked style="width:auto;margin:2px 0"> <span>Make this stock entry visible in the public blood availability listing (after verification).</span></label></div>
+      </div><div class="notice">Use this portal only if you are authorized by the blood bank or hospital. Enter accurate stock counts and update them promptly when units are reserved, issued, expired or otherwise unavailable.</div><button class="btn" type="submit">Save blood stock</button> <button class="btn secondary" type="reset">Clear form</button></form></div>
+    </section>
+
+    <section class="page" id="page-profile">
+      <div class="heading"><div><h1>Institution profile</h1><p>Institution details displayed in your portal.</p></div></div>
+      <div class="panel" style="max-width:720px"><form id="profileForm"><label for="institutionName">Institution / blood bank name</label><input id="institutionName" required value="City Care Blood Centre"><label for="institutionType">Institution type</label><select id="institutionType"><option>Blood bank</option><option>Hospital</option><option>Hospital blood storage centre</option></select><label for="institutionArea">City / area</label><input id="institutionArea" value="Guntur"><label for="institutionAddress">Public address</label><textarea id="institutionAddress" rows="2">Sample Road, Guntur, Andhra Pradesh</textarea><label for="institutionPhone">Official contact number</label><input id="institutionPhone" placeholder="Institution contact number"><button class="btn" type="submit">Save profile</button></form></div>
+    </section>
+  </div>
+  <footer>LifeLink institution portal · Static prototype · Fictional sample data</footer>
+</main>
+
+<div class="modalback" id="detailModal"><div class="modal"><div class="modalhead"><h2>Donor application details</h2><button class="x" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const initialApplications=[
+{id:101,name:"Ananya Rao",phone:"9XXXXXX210",group:"O+",area:"Guntur",date:"2026-11-18",time:"Morning (8 AM – 12 PM)",preference:"Specific date",status:"Pending"},
+{id:102,name:"Rahul Kumar",phone:"9XXXXXX384",group:"A+",area:"Guntur",date:"Flexible",time:"Flexible",preference:"Flexible",status:"Pending"},
+{id:103,name:"Sana Fatima",phone:"9XXXXXX517",group:"B+",area:"Tenali",date:"2026-11-20",time:"Afternoon (12 PM – 4 PM)",preference:"Specific date",status:"Pending"},
+{id:104,name:"Kiran Dev",phone:"9XXXXXX602",group:"AB+",area:"Guntur",date:"2026-11-16",time:"Evening (4 PM – 7 PM)",preference:"Specific date",status:"Approved"},
+{id:105,name:"Meera S",phone:"9XXXXXX731",group:"O-",area:"Mangalagiri",date:"Flexible",time:"Flexible",preference:"Flexible",status:"Approved"}
+];
+const initialStock=[
+{ id:1,group:"A+",component:"Whole blood",units:3,date:"2026-11-12",published:true },
+{ id:2,group:"A-",component:"Red blood cells (RBC)",units:1,date:"2026-11-12",published:true },
+{ id:3,group:"B+",component:"Whole blood",units:4,date:"2026-11-12",published:true },
+{ id:4,group:"B-",component:"Platelets",units:1,date:"2026-11-12",published:true },
+{ id:5,group:"AB+",component:"Plasma",units:2,date:"2026-11-12",published:true },
+{ id:6,group:"AB-",component:"Whole blood",units:1,date:"2026-11-12",published:true },
+{ id:7,group:"O+",component:"Whole blood",units:3,date:"2026-11-12",published:true },
+{ id:8,group:"O-",component:"Red blood cells (RBC)",units:1,date:"2026-11-12",published:true }
+];
+let applications=JSON.parse(localStorage.getItem("ll_applications")||"null")||initialApplications;
+let inventory=JSON.parse(localStorage.getItem("ll_inventory")||"null")||initialStock;
+let institution=JSON.parse(localStorage.getItem("ll_institution")||"null")||{name:"City Care Blood Centre",type:"Blood bank",area:"Guntur",address:"Sample Road, Guntur, Andhra Pradesh",phone:""};
+function persist(){localStorage.setItem("ll_applications",JSON.stringify(applications));localStorage.setItem("ll_inventory",JSON.stringify(inventory));localStorage.setItem("ll_institution",JSON.stringify(institution))}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.style.display="block";setTimeout(()=>t.style.display="none",4000)}
+function showPage(page,button){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+page).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(button)button.classList.add("active");else{let b=document.querySelector(`[data-page="${page}"]`);if(b)b.classList.add("active")}document.getElementById("topTitle").textContent=({overview:"Overview",applications:"Donor applications",inventory:"Blood inventory",addstock:"Update blood stock",profile:"Institution profile"})[page];if(page==="overview")renderOverview()}
+function statusPill(s){let c=s==="Approved"?"approved":s==="Declined"?"rejected":"pending";return `<span class="pill ${c}">${s}</span>`}
+function renderOverview(){document.getElementById("newCount").textContent=applications.filter(a=>a.status==="Pending").length;document.getElementById("approvedCount").textContent=applications.filter(a=>a.status==="Approved").length;document.getElementById("groupCount").textContent=new Set(inventory.filter(s=>s.units>0).map(s=>s.group)).size;document.getElementById("unitCount").textContent=inventory.reduce((n,s)=>n+Number(s.units),0);document.getElementById("recentApplications").innerHTML=applications.slice(0,4).map(a=>`<tr><td><b>${a.name}</b><br><small>${a.area}</small></td><td>${a.group}</td><td>${a.date}</td><td>${statusPill(a.status)}</td><td><button class="btn secondary sm" onclick="viewApplication(${a.id})">View</button></td></tr>`).join("")||'<tr><td colspan="5" class="empty">No applications yet.</td></tr>';document.getElementById("overviewStock").innerHTML=["A+","A-","B+","B-","AB+","AB-","O+","O-"].map(g=>{let n=inventory.filter(x=>x.group===g&&x.published).reduce((s,x)=>s+Number(x.units),0);return `<div class="bloodbox"><b>${g}</b><span>${n} listed unit(s)</span></div>`}).join("");}
+function renderApplications(){let q=document.getElementById("appSearch").value.toLowerCase(),st=document.getElementById("appStatus").value;let rows=applications.filter(a=>(!st||a.status===st)&&[a.name,a.group,a.area].join(" ").toLowerCase().includes(q));document.getElementById("applicationRows").innerHTML=rows.map(a=>`<tr><td><b>${a.name}</b><br><small>${a.phone}</small></td><td>${a.group}</td><td>${a.area}</td><td>${a.date}<br><small>${a.time}</small></td><td>${statusPill(a.status)}</td><td><button class="btn secondary sm" onclick="viewApplication(${a.id})">Details</button></td></tr>`).join("")||'<tr><td colspan="6" class="empty">No matching applications.</td></tr>'}
+function viewApplication(id){let a=applications.find(x=>x.id===id);if(!a)return;document.getElementById("modalBody").innerHTML=`<div class="formgrid"><div><label>Donor name</label><p>${a.name}</p></div><div><label>Blood group</label><p><b style="color:var(--red)">${a.group}</b></p></div><div><label>Contact</label><p>${a.phone}</p></div><div><label>Location</label><p>${a.area}</p></div><div><label>Preferred date</label><p>${a.date}</p></div><div><label>Preferred time</label><p>${a.time}</p></div><div><label>Preference</label><p>${a.preference}</p></div><div><label>Application status</label><p>${statusPill(a.status)}</p></div></div><div class="notice">Contact the donor to confirm availability and arrange the next steps. Final donor eligibility must be assessed by qualified staff.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn green" onclick="setApplicationStatus(${a.id},'Approved')">Mark reviewed / contact</button><button class="btn danger" onclick="setApplicationStatus(${a.id},'Declined')">Decline</button><button class="btn secondary" onclick="setApplicationStatus(${a.id},'Pending')">Keep pending</button></div>`;document.getElementById("detailModal").classList.add("show")}
+function closeModal(){document.getElementById("detailModal").classList.remove("show")}
+function setApplicationStatus(id,status){let a=applications.find(x=>x.id===id);if(a){a.status=status;persist();renderApplications();renderOverview();viewApplication(id);toast("Application marked "+status.toLowerCase()+" in this demo.")}}
+function renderInventory(){let q=(document.getElementById("stockSearch").value||"").toLowerCase(),g=document.getElementById("stockFilter").value;let rows=inventory.filter(x=>(!g||x.group===g)&&[x.group,x.component].join(" ").toLowerCase().includes(q));document.getElementById("stockRows").innerHTML=rows.map(x=>`<tr><td><b style="color:var(--red)">${x.group}</b></td><td>${x.component}</td><td>${x.units}</td><td>${x.date}</td><td>${x.published?'<span class="pill approved">Published</span>':'<span class="pill">Hidden</span>'}</td><td><button class="btn secondary sm" onclick="togglePublish(${x.id})">${x.published?"Hide":"Publish"}</button> <button class="btn danger sm" onclick="deleteStock(${x.id})">Delete</button></td></tr>`).join("")||'<tr><td colspan="6" class="empty">No stock records found.</td></tr>'}
+function togglePublish(id){let x=inventory.find(x=>x.id===id);x.published=!x.published;persist();renderInventory();renderOverview();toast("Stock visibility updated in this browser demo.")}
+function deleteStock(id){if(confirm("Delete this stock entry?")){inventory=inventory.filter(x=>x.id!==id);persist();renderInventory();renderOverview();toast("Stock entry deleted from this demo.")}}
+document.getElementById("stockDate").value=new Date().toISOString().slice(0,10);
+document.getElementById("stockForm").addEventListener("submit",e=>{e.preventDefault();let g=document.getElementById("stockGroup").value,c=document.getElementById("component").value,u=Number(document.getElementById("units").value),d=document.getElementById("stockDate").value,p=document.getElementById("publishStock").checked;let old=inventory.find(x=>x.group===g&&x.component===c);if(old){old.units=u;old.date=d;old.published=p}else inventory.unshift({id:Date.now(),group:g,component:c,units:u,date:d,published:p});persist();e.target.reset();document.getElementById("stockDate").value=new Date().toISOString().slice(0,10);document.getElementById("publishStock").checked=true;renderInventory();renderOverview();toast("Blood stock saved in this browser demo.");showPage("inventory")});
+document.getElementById("profileForm").addEventListener("submit",e=>{e.preventDefault();institution={name:document.getElementById("institutionName").value,type:document.getElementById("institutionType").value,area:document.getElementById("institutionArea").value,address:document.getElementById("institutionAddress").value,phone:document.getElementById("institutionPhone").value};persist();updateInstitution();toast("Institution profile updated in this demo.")});
+function updateInstitution(){document.getElementById("orgNameSide").textContent=institution.name;document.getElementById("topOrgName").textContent=institution.name;document.getElementById("institutionName").value=institution.name;document.getElementById("institutionType").value=institution.type;document.getElementById("institutionArea").value=institution.area;document.getElementById("institutionAddress").value=institution.address;document.getElementById("institutionPhone").value=institution.phone}
+document.getElementById("detailModal").addEventListener("click",e=>{if(e.target.id==="detailModal")closeModal()});
+updateInstitution();renderOverview();renderApplications();renderInventory();
+</script>
+</body></html>

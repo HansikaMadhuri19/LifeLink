@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LifeLink | Blood & Organ Donation</title>
+<style>
+:root{--red:#a51d35;--dark:#202333;--muted:#687084;--line:#e7e9ef;--bg:#f7f8fb}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.55}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav,main,.hero-inner,.foot{max-width:1120px;margin:auto;padding-left:22px;padding-right:22px}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-size:23px;font-weight:800;color:var(--red)}.brand span{color:var(--dark)}
+nav{display:flex;gap:22px;font-size:14px}a{color:inherit;text-decoration:none}nav a:hover{color:var(--red)}
+.btn{display:inline-block;border:0;border-radius:9px;background:var(--red);color:#fff;padding:11px 17px;font-weight:700;cursor:pointer}.btn:hover{background:#86172c}
+.hero{background:linear-gradient(115deg,#78172d,#b32640 60%,#e45b67);color:white;padding:65px 0}.hero-inner{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:bold}h1{font-size:clamp(36px,5vw,58px);line-height:1.08;margin:14px 0}.hero p{color:#ffe9ed;max-width:650px;font-size:17px}.hero .btn{background:white;color:var(--red);margin-right:8px}
+.hero-card{padding:25px;border:1px solid #ffffff55;background:#ffffff18;border-radius:18px}.hero-card b{font-size:44px}.hero-card p{font-size:14px}
+main{padding-top:42px;padding-bottom:60px}.section{margin-bottom:52px;scroll-margin-top:85px}.head{margin-bottom:20px}.head h2{font-size:28px;margin:0 0 4px}.head p,.muted{color:var(--muted);font-size:14px;margin:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel,.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:22px}.panel h3{margin:0 0 4px}.panel .muted{margin-bottom:15px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px;color:#41485a}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #dfe2e9;border-radius:8px;background:white;font:inherit;color:var(--dark)}input:focus,select:focus{outline:2px solid #e9b7c0;border-color:var(--red)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.check{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0}.check input{width:auto;margin-top:3px}
+.notice{padding:12px 14px;border-left:3px solid #d99a36;background:#fff8e9;color:#705728;border-radius:5px;font-size:12px;margin:14px 0}
+.filter{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;background:#fff;padding:15px;border:1px solid var(--line);border-radius:13px;margin-bottom:15px;align-items:end}
+.filter label{margin-top:0}.inventory{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.blood{font-size:22px;font-weight:800;color:var(--red);background:#fff0f2;border-radius:9px;padding:8px 12px;display:inline-block;margin-bottom:10px}
+.card p{font-size:13px;color:var(--muted);margin:4px 0}.card strong{font-size:14px}.tag{display:inline-block;background:#eff8f3;color:#16734f;padding:4px 9px;border-radius:20px;font-size:11px;margin-top:8px}
+.empty{grid-column:1/-1;text-align:center;padding:25px;background:#fff;border:1px dashed #ccd1dc;border-radius:12px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.num{font-size:12px;color:var(--red);font-weight:bold;letter-spacing:1px}.card h3{margin:6px 0}
+footer{background:var(--dark);color:#dfe2eb;padding:28px 0;font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer b{color:white}
+#toast{display:none;position:fixed;bottom:20px;right:20px;z-index:10;background:var(--dark);color:white;padding:14px 18px;border-radius:10px;max-width:360px;box-shadow:0 8px 25px #0002;font-size:13px}
+.smallprint{font-size:11px;color:var(--muted);margin-top:12px}
+@media(max-width:800px){nav{display:none}.hero-inner{grid-template-columns:1fr}.inventory{grid-template-columns:1fr 1fr}.filter{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}}
+@media(max-width:560px){.grid,.row{grid-template-columns:1fr}.inventory{grid-template-columns:1fr}.filter{grid-template-columns:1fr}.hero{padding:45px 0}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="#">♥ Life<span>Link</span></a><nav><a href="#availability">Blood availability</a><a href="#register">Become a donor</a><a href="#request">Request blood</a><a href="#how">How it works</a></nav><a class="btn" href="#register">Join as donor</a></div></header>
+<section class="hero"><div class="hero-inner"><div><div class="eyebrow">Give hope. Help save lives.</div><h1>One community.<br>One life-saving connection.</h1><p>Connect blood donors, people seeking blood, and people interested in learning about organ donation.</p><a class="btn" href="#request">Find blood</a><a class="btn" href="#register">Become a donor</a></div><div class="hero-card"><b>🩸</b><h3>Every connection matters.</h3><p>Register your interest, choose a preferred donation centre and date, or submit a blood request.</p></div></div></section>
+<main>
+<section class="section" id="availability"><div class="head"><h2>Blood availability</h2><p>Search fictional sample listings by blood group and area.</p></div>
+<div class="filter"><div><label for="areaSearch">Area / city</label><input id="areaSearch" placeholder="e.g. Guntur"></div><div><label for="groupSearch">Blood group</label><select id="groupSearch"><option value="">All groups</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div><div><label for="radiusSearch">Radius</label><select id="radiusSearch"><option>10</option><option selected>25</option><option>50</option><option>100</option></select></div><button class="btn" onclick="filterStock()">Search</button></div>
+<div class="inventory" id="inventory"></div><p class="smallprint">These are demonstration records only, not live blood-bank stock. Always confirm availability and compatibility with a licensed blood bank and medical professional.</p></section>
+
+<section class="section" id="register"><div class="head"><h2>Become a donor</h2><p>Register your interest and choose when and where you would prefer to donate.</p></div>
+<div class="grid">
+<div class="panel"><h3>Blood donor registration</h3><p class="muted">Complete your details, then select a suggested donation centre.</p>
+<form id="bloodForm">
+<label for="donorName">Full name</label><input id="donorName" required placeholder="Your name">
+<div class="row"><div><label for="donorPhone">Phone number</label><input id="donorPhone" required inputmode="tel" pattern="[0-9+\\-\\s]{10,15}" placeholder="Contact number"></div><div><label for="donorBlood">Blood group</label><select id="donorBlood" required><option value="">Choose</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div></div>
+<label for="donorArea">Your city / area</label><input id="donorArea" required placeholder="e.g. Guntur">
+<div class="notice">Nearby centres shown below are fictional sample suggestions. In a live website, suggestions will come from verified centre data and your location.</div>
+<label for="donationPreference">When would you like to donate?</label><select id="donationPreference" required><option value="">Choose preference</option><option value="specific">I have a preferred date</option><option value="flexible">I am flexible – contact me when needed</option><option value="soon">As soon as possible</option></select>
+<div class="row"><div><label for="donationDate">Preferred donation date</label><input id="donationDate" type="date"></div><div><label for="donationTime">Preferred time</label><select id="donationTime"><option value="">Choose time</option><option>Morning (8 AM – 12 PM)</option><option>Afternoon (12 PM – 4 PM)</option><option>Evening (4 PM – 7 PM)</option></select></div></div>
+<label for="donationCentre">Where would you like to donate?</label><select id="donationCentre" required><option value="">Select a suggested centre</option><option>City Blood Bank — sample, approx. 3 km</option><option>District Hospital Blood Centre — sample, approx. 6 km</option><option>Community Blood Centre — sample, approx. 9 km</option></select>
+<label class="check"><input id="donorConsent" type="checkbox" required><span>I understand this is a static demo. My preferences are not a confirmed appointment or medical eligibility decision.</span></label>
+<button class="btn" type="submit">Submit donor preferences</button></form>
+</div>
+<div class="panel"><h3>Suggested nearby donation centres</h3><p class="muted">Example results for a location such as Guntur.</p>
+<div class="card"><strong>City Blood Bank</strong><p>Sample location • Approx. 3 km away</p><span class="tag">Example centre</span></div><br>
+<div class="card"><strong>District Hospital Blood Centre</strong><p>Sample location • Approx. 6 km away</p><span class="tag">Example centre</span></div><br>
+<div class="card"><strong>Community Blood Centre</strong><p>Sample location • Approx. 9 km away</p><span class="tag">Example centre</span></div>
+<div class="notice">A selected date and centre are only preferences. The centre must confirm its operating hours, appointment availability and donor eligibility before the visit.</div>
+</div>
+</div>
+<div class="grid" style="margin-top:18px">
+<div class="panel"><h3>Organ donation interest</h3><p class="muted">Submit your interest in learning about the official process.</p><form id="organForm"><label for="organName">Full name</label><input id="organName" required><label for="organEmail">Email address</label><input id="organEmail" type="email" required><label for="organArea">City / state</label><input id="organArea" required><label for="organInterest">What would you like to know?</label><select id="organInterest" required><option value="">Choose</option><option>How organ donation works</option><option>Official pledge process</option><option>Family discussion and awareness</option></select><label class="check"><input type="checkbox" required><span>I understand this is not legal consent or an official organ donor pledge.</span></label><button class="btn">Submit interest</button></form><div class="notice">Organ donation must follow official procedures. A website form alone is not legal consent.</div></div>
+<div class="panel" id="request"><h3>Request blood</h3><p class="muted">Submit a demo request to preview nearby matching.</p><form id="requestForm"><label for="requestName">Contact person's name</label><input id="requestName" required><div class="row"><div><label for="requestGroup">Blood group</label><select id="requestGroup" required><option value="">Choose</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div><div><label for="requestRadius">Alert radius</label><select id="requestRadius"><option>5</option><option selected>10</option><option>25</option><option>50</option></select></div></div><label for="requestArea">Location / city</label><input id="requestArea" required><label for="requestHospital">Hospital / centre</label><input id="requestHospital" required><label class="check"><input type="checkbox" required><span>I understand this prototype does not send real alerts.</span></label><button class="btn">Preview nearby matches</button></form><div class="notice" id="matchPreview">Your sample matching result will appear here.</div></div>
+</div></section>
+
+<section class="section" id="how"><div class="head"><h2>How LifeLink works</h2><p>The future full-stack workflow.</p></div><div class="steps"><div class="card"><div class="num">01 / REGISTER</div><h3>Join safely</h3><p class="muted">Submit donor details and donation preferences. Verify identity, consent and eligibility before activation.</p></div><div class="card"><div class="num">02 / MATCH</div><h3>Find nearby help</h3><p class="muted">Search blood availability and donation centres by blood group, location and distance.</p></div><div class="card"><div class="num">03 / NOTIFY</div><h3>Connect responsibly</h3><p class="muted">Notify opted-in donors privately and confirm actual availability with blood banks.</p></div></div></section>
+</main>
+<footer><div class="foot"><div><b>♥ LifeLink</b><br>Connecting people through care.</div><div>Static website prototype • Fictional sample data<br>Not a medical or emergency response service.</div></div></footer><div id="toast" role="status" aria-live="polite"></div>
+<script>
+const stock=[
+{g:"O+",place:"City Blood Centre",area:"Guntur",km:4,units:3},{g:"A+",place:"Community Blood Bank",area:"Guntur",km:8,units:2},
+{g:"B+",place:"District Hospital Blood Unit",area:"Vijayawada",km:31,units:4},{g:"AB-",place:"Life Care Blood Centre",area:"Guntur",km:12,units:1},
+{g:"O-",place:"Central Blood Bank",area:"Tenali",km:22,units:1},{g:"B-",place:"Sample Medical Centre",area:"Vijayawada",km:46,units:2},
+{g:"A-",place:"Demo Blood Services",area:"Guntur",km:18,units:1},{g:"AB+",place:"Sample City Hospital",area:"Tenali",km:24,units:2}];
+const donors=[{g:"O+",name:"Demo donor A",km:4},{g:"O+",name:"Demo donor B",km:9},{g:"A+",name:"Demo donor C",km:8},{g:"O-",name:"Demo donor D",km:22},{g:"B+",name:"Demo donor E",km:31}];
+function showStock(items){const el=document.getElementById("inventory");el.innerHTML=items.length?items.map(x=>`<div class="card"><span class="blood">${x.g}</span><p><strong>${x.place}</strong></p><p>${x.area} • approx. ${x.km} km</p><p>${x.units} fictional sample unit(s)</p><span class="tag">Demo listing</span></div>`).join(""):'<div class="empty">No sample listings match. Try a wider radius or another blood group.</div>'}
+function filterStock(){let area=document.getElementById("areaSearch").value.toLowerCase().trim(),g=document.getElementById("groupSearch").value,r=+document.getElementById("radiusSearch").value;showStock(stock.filter(x=>(!area||x.area.toLowerCase().includes(area))&&(!g||x.g===g)&&x.km<=r))}
+function toast(msg){let el=document.getElementById("toast");el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",5000)}
+const dateInput=document.getElementById("donationDate");dateInput.min=new Date().toISOString().slice(0,10);
+document.getElementById("donationPreference").addEventListener("change",e=>{let specific=e.target.value==="specific";dateInput.required=specific;document.getElementById("donationTime").required=specific;dateInput.disabled=!specific;document.getElementById("donationTime").disabled=!specific;if(!specific){dateInput.value="";document.getElementById("donationTime").value=""}});
+document.getElementById("donationPreference").dispatchEvent(new Event("change"));
+document.getElementById("bloodForm").addEventListener("submit",e=>{e.preventDefault();let pref=document.getElementById("donationPreference").value,date=dateInput.value,time=document.getElementById("donationTime").value,centre=document.getElementById("donationCentre").value;let when=pref==="specific"?date+" / "+time:pref==="soon"?"As soon as possible (subject to centre confirmation)":"Flexible – contact when needed";toast("Demo preference submitted. Centre: "+centre+". Preferred time: "+when+". No data was sent or saved.");e.target.reset();document.getElementById("donationPreference").dispatchEvent(new Event("change"))});
+document.getElementById("organForm").addEventListener("submit",e=>{e.preventDefault();toast("Demo only: no organ donation registration was submitted.");e.target.reset()});
+document.getElementById("requestForm").addEventListener("submit",e=>{e.preventDefault();let g=document.getElementById("requestGroup").value,r=+document.getElementById("requestRadius").value,m=donors.filter(x=>x.g===g&&x.km<=r);document.getElementById("matchPreview").textContent=m.length?m.length+" fictional matching donor(s): "+m.map(x=>x.name+" ("+x.km+" km)").join(", ")+". No real alerts sent.":"No fictional sample matches found. No real alerts sent.";e.target.reset()});
+showStock(stock);
+</script>
+</body></html>
