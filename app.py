@@ -25,6 +25,14 @@ DEMO_EMAIL = "admin@lifelink.test"
 DEMO_PASSWORD = "LifeLink123!"
 SESSIONS: dict[str, dict] = {}
 
+# --- Pages for both websites ---
+@app.get("/")
+def home():
+    return FileResponse(STATIC_DIR / "index.html")
+
+@app.get("/institution")
+def institution():
+    return FileResponse(STATIC_DIR / "institution.html")
 
 def db():
     conn = sqlite3.connect(DB_PATH)
